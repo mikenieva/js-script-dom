@@ -10,6 +10,7 @@ const noSongsElement = container.querySelector(".no-songs");
 
 // 2. MANIPULACIÓN
 // habilita el botón "Reiniciar" y oculta el texto "No hay canciones agregadas" cuando tengamos canciones en la lista de reproducción
+// A. DECLARACIÓN DE FUNCIONES
 function renderHasSongs() {
   resetButton.removeAttribute("disabled");
   resetButton.classList.remove("input__btn_disabled");
@@ -25,12 +26,12 @@ function renderNoSongs() {
 
 // agrega el código HTML de la canción dentro del elemento songs-container
 function addSong(artistValue, titleValue) {
-  const trackContainer = document.createElement("div");
-  trackContainer.classList.add("song");
+  const trackContainer = document.createElement("div"); // <div></div>
+  trackContainer.classList.add("song"); // <div class="song"></div>
 
-  const artistElement = document.createElement("h4");
-  artistElement.classList.add("song__artist");
-  artistElement.textContent = artistValue;
+  const artistElement = document.createElement("h4"); // <h4></h4>
+  artistElement.classList.add("song__artist"); // <h4 class="song__artist"></h4>
+  artistElement.textContent = artistValue; // <h4 class="song__artist">The Beatles</h4>
 
   const titleElement = document.createElement("p");
   titleElement.classList.add("song__title");
@@ -40,6 +41,13 @@ function addSong(artistValue, titleValue) {
   likeButtonElement.classList.add("song__like");
 
   trackContainer.append(artistElement, titleElement, likeButtonElement);
+  /** ESTE ES EL RESULTADO DEL APPEND
+   * <div class="song">
+   *    <h4 ...>...</h4>
+   *    <p...>..</p...>
+   *    <button>....</button>
+   * </div>
+   */
 
   songsContainer.append(trackContainer);
 
@@ -63,6 +71,7 @@ function addSong(artistValue, titleValue) {
   //   );
 }
 
+// B. EVENTOS
 // guarda el artista y el título de las entradas en variables haciendo clic en el botón "Agregar"
 addButton.addEventListener("click", function () {
   console.log("hola mundo");
@@ -78,4 +87,24 @@ addButton.addEventListener("click", function () {
   renderHasSongs();
   artist.value = "";
   title.value = "";
+});
+
+resetButton.addEventListener("click", function () {
+  const songs = document.querySelectorAll(".song");
+
+  // 1. BORRAR TODAS LAS CANCIONES AGREGADAS
+  songs.forEach(function (song) {
+    song.remove();
+  });
+
+  // 2. GENERAR UNA ETIQUETA "NO HAY CANCIONES AÑADIDAS" - TEXTCONTENT
+  // noSongsElement.classList.remove("no-songs_hidden");
+  // resetButton.setAttribute("disabled", true);
+
+  // 3. CAMBIAR EL CSS DE LA ETIQUETA
+  // INICIO: input__btn input__btn_action_reset input__btn_disabled
+  // FIN:    input__btn input__btn_action_reset input__btn_disabled
+  // resetButton.classList.add("input__btn_disabled");
+
+  renderNoSongs();
 });
